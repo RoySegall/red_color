@@ -1,0 +1,16 @@
+#red_color {
+  position: fixed;
+  top: 30px;
+  right: 10%;
+  display: none;
+  background-color: #f23925;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-family: "@Arial Unicode MS", Arial, sans-serif;
+  width: 75%;
+}
+
+#red_color ul li {
+  list-style-type: none;
+}

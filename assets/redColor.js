@@ -10,16 +10,26 @@
           type: 'get',
           crossDomain: true,
           contentType: "application/json; charset=utf-8",
-          success: function(msg) {
-            if (msg == 'NO_RESULTS') {
+          success: function(results) {
+            if (results == 'NO_RESULTS') {
               return;
             }
 
-            if (JSON.stringify(messages) !== JSON.stringify(msg)) {
-              console.log(msg);
+            var items = [];
+
+            if (JSON.stringify(messages) !== JSON.stringify(results)) {
+
+              $.each(results, function(key, value) {
+                items[key] = "<li>" + value + "</li>";
+              });
+
+              var output = '<div class="red_color" id="red_color"><ul>' + items.join("") + '</ul></div>';
+
+              $("body").append(output);
+              $("#red_color").show(500);
             }
 
-            messages = msg;
+            messages = results;
           }
         });
       }, 1000);

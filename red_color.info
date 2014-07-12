@@ -4,3 +4,4 @@ core = 7.x
 
 ; Add assets.
 scripts[] = assets/redColor.js
+stylesheets[all][] = assets/red_color.css
