@@ -23,14 +23,25 @@
                 items[key] = "<li>" + value + "</li>";
               });
 
-              var output = '<div class="red_color" id="red_color"><ul>' + items.join("") + '</ul></div>';
+              var output =
+                '<div class="red_color" id="red_color">' +
+                  '<div class="wrapper">' +
+                    '<ul>' + items.join("") + '</ul> ' +
+                    '<div class="close">X</div>' +
+                  '</div>' +
+                '</div>';
 
               $("body").append(output);
-              $("#red_color").show(500);
+              $("#red_color").show();
             }
 
             messages = results;
           }
+        });
+
+
+        $(".close").click(function() {
+          $(".red_color").hide('slow');
         });
       }, 1000);
     }

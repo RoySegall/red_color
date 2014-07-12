@@ -22,10 +22,12 @@ function red_color_menu() {
 function red_color_result() {
   $request = drupal_http_request('http://www.oref.org.il/WarningMessages/alerts.json');
   $decoded_request = json_decode(utf16_to_utf8($request->data));
+
   if (!$decoded_request->data) {
     drupal_json_output('NO_RESULTS');
     return;
   }
+
   drupal_json_output($decoded_request->data);
 }
 
@@ -73,11 +75,4 @@ function utf16_to_utf8($str) {
   }
 
   return $dec;
-}
-
-/**
- * Implements hook_preprocess_page().
- */
-function red_color_preprocess_page(&$variables) {
-  drupal_add_css("", array('external' => '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'));
 }

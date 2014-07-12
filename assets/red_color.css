@@ -14,3 +14,15 @@
 #red_color ul li {
   list-style-type: none;
 }
+
+#red_color .close {
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  border: white 1px solid;
+  padding: 5px 10px;
+}
+
+#red_color .wrapper {
+  position: relative;
+}
