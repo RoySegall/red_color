@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function red_color_menu() {
+  $items = array();
+
+  $items['red_color'] = array(
+    'type' => MENU_CALLBACK,
+    'title' => 'Red color return',
+    'access callback' => TRUE,
+    'page callback' => 'red_color_result',
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback; Return red color results.
+ */
+function red_color_result() {
+  $request = drupal_http_request('http://www.oref.org.il/WarningMessages/alerts.json');
+  $decoded_request = json_decode(utf16_to_utf8($request->data));
+  drupal_json_output($decoded_request->data);
+}
+
+/**
+ * Convert the string from utf-16 to utf-8.
+ *
+ * @param $str
+ *  The json data from the server.
+ * @return string
+ *  The json output from the server in a utf-8 format.
+ *
+ * @see http://www.craiglotter.co.za/2010/03/05/php-convert-a-utf-16-string-to-a-utf-8-string/
+ */
+function utf16_to_utf8($str) {
+  $c0 = ord($str[0]);
+  $c1 = ord($str[1]);
+
+  if ($c0 == 0xFE && $c1 == 0xFF) {
+    $be = TRUE;
+  }
+  else if ($c0 == 0xFF && $c1 == 0xFE) {
+    $be = FALSE;
+  }
+  else {
+    return $str;
+  }
+
+  $str = substr($str, 2);
+  $len = strlen($str);
+  $dec = '';
+  for ($i = 0; $i < $len; $i += 2) {
+    $c = ($be) ? ord($str[$i]) << 8 | ord($str[$i + 1]) : ord($str[$i + 1]) << 8 | ord($str[$i]);
+    if ($c >= 0x0001 && $c <= 0x007F) {
+      $dec .= chr($c);
+    }
+    else if ($c > 0x07FF) {
+      $dec .= chr(0xE0 | (($c >> 12) & 0x0F));
+      $dec .= chr(0x80 | (($c >>  6) & 0x3F));
+      $dec .= chr(0x80 | (($c >>  0) & 0x3F));
+    }
+    else {
+      $dec .= chr(0xC0 | (($c >>  6) & 0x1F));
+      $dec .= chr(0x80 | (($c >>  0) & 0x3F));
+    }
+  }
+
+  return $dec;
+}

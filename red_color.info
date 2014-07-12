@@ -1,0 +1,6 @@
+name = Red color
+description = Present red color alerts in israel.
+core = 7.x
+
+; Add assets.
+scripts[] = assets/redColor.js
