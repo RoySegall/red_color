@@ -32,7 +32,9 @@ function red_color_result() {
 }
 
 /**
- * Convert the string from utf-16 to utf-8.
+ * Convert the string from utf-16 to utf-8. Home Front Command serve the api
+ * in a utf-16 format. Since we working with utf-8 format we need to convert
+ * the results.
  *
  * @param $str
  *  The json data from the server.
