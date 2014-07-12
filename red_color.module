@@ -21,6 +21,11 @@ function red_color_menu() {
  */
 function red_color_result() {
   $request = drupal_http_request('http://www.oref.org.il/WarningMessages/alerts.json');
+
+  if (empty($request->data)) {
+    return;
+  }
+
   $decoded_request = json_decode(utf16_to_utf8($request->data));
 
   if (!$decoded_request->data) {
