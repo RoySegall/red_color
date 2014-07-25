@@ -41,7 +41,7 @@
 
 
         $(".close").click(function() {
-          $(".red_color").hide('slow');
+          $(".red_color").remove();
         });
       }, 1000);
     }
